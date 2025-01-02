@@ -69,6 +69,9 @@ export const useAuthStore = create<IAuthStore>()(
             account.createJWT()
 
           ])
+          // if (!user.prefs?.reputation) await account.updatePrefs<UserPrefs>({
+          //   reputation: 0
+          // })
           if (!user.prefs?.reputation) await account.updatePrefs<UserPrefs>({
             reputation: 0
           })
