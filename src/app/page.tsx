@@ -7,11 +7,8 @@ function Page() {
   return (
     <div>
       <HeroSection />
-      <br />
-      <br />
-
       {/* Flex container for LatestQuestions and TopContributers */}
-      <div className="flex justify-center space-x-8">
+      <div className="flex flex-col md:flex-row justify-center space-y-8 md:space-y-0 md:space-x-8">
         <div className="w-full max-w-3xl">
           {/* Latest Questions Section */}
           <h2 className="text-2xl m-10 font-bold ">Latest Questions</h2>
@@ -29,3 +26,4 @@ function Page() {
 }
 
 export default Page;
+

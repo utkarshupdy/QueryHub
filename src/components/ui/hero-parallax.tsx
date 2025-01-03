@@ -97,13 +97,13 @@ export const ProductCard = ({
                 y: -20,
             }}
             key={product.title}
-            className="group/product relative h-96 w-[30rem] flex-shrink-0"
+            className="group/product relative h-72 w-[20rem] flex-shrink-0" // Reduced height and width
         >
             <Link href={product.link} className="block group-hover/product:shadow-2xl">
                 <Image
                     src={product.thumbnail}
-                    height="600"
-                    width="600"
+                    height="500" // Adjusted height for the image
+                    width="500"  // Adjusted width for the image
                     className="absolute inset-0 h-full w-full object-cover object-left-top"
                     alt={product.title}
                 />

@@ -42,52 +42,52 @@ export default function HeroSection() {
     const products = [
         {
             title: "AI Revolution",
-            link: "/questions/1/ai-revolution",
+            link: "/questions",
             thumbnail: "https://images.pexels.com/photos/1089438/pexels-photo-1089438.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", // AI-related image
         },
         {
             title: "Data Analysis",
-            link: "/questions/2/data-analysis",
+            link: "/questions",
             thumbnail: "https://images.pexels.com/photos/669619/pexels-photo-669619.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", // Data-related image
         },
         {
             title: "Cloud Computing",
-            link: "/questions/3/cloud-computing",
+            link: "/questions",
             thumbnail: "https://images.pexels.com/photos/1054397/pexels-photo-1054397.jpeg?auto=compress&cs=tinysrgb&w=600", // Cloud image
         },
         {
             title: "Cybersecurity",
-            link: "/questions/4/cybersecurity",
+            link: "/questions",
             thumbnail: "https://images.pexels.com/photos/3945682/pexels-photo-3945682.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", // Cybersecurity image
         },
         {
             title: "Quantum Computing",
-            link: "/questions/5/quantum-computing",
+            link: "/questions",
             thumbnail: "https://images.pexels.com/photos/340152/pexels-photo-340152.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", // Quantum computing image
         },
         {
             title: "AI Revolution",
-            link: "/questions/1/ai-revolution",
+            link: "/questions",
             thumbnail: "https://images.pexels.com/photos/5380589/pexels-photo-5380589.jpeg?auto=compress&cs=tinysrgb&w=600", // AI-related image
         },
         {
             title: "Ethical Hacking",
-            link: "/questions/2/data-analysis",
+            link: "/questions",
             thumbnail: "https://images.pexels.com/photos/60504/security-protection-anti-virus-software-60504.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", // Data-related image
         },
         {
             title: "Machine Learning",
-            link: "/questions/3/cloud-computing",
+            link: "/questions",
             thumbnail: "https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=600", // Cloud image
         },
         {
             title: "Data Robots",
-            link: "/questions/4/cybersecurity",
+            link: "/questions",
             thumbnail: "https://images.pexels.com/photos/5473955/pexels-photo-5473955.jpeg?auto=compress&cs=tinysrgb&w=600", // Cybersecurity image
         },
         {
             title: "Humanoid",
-            link: "/questions/5/quantum-computing",
+            link: "/questions",
             thumbnail: "https://images.pexels.com/photos/4389986/pexels-photo-4389986.jpeg?auto=compress&cs=tinysrgb&w=600", // Quantum computing image
         },
     ];
