@@ -177,6 +177,7 @@ const QuestionForm = ({ question }: { question?: Models.Document }) => {
                     </small>
                 </Label>
                 <Input
+                    className="text-gray-500"
                     id="title"
                     name="title"
                     placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
@@ -235,6 +236,7 @@ const QuestionForm = ({ question }: { question?: Models.Document }) => {
                 <div className="flex w-full gap-4">
                     <div className="w-full">
                         <Input
+                            className="text-gray-500"
                             id="tag"
                             name="tag"
                             placeholder="e.g. (java c objective-c)"
@@ -300,3 +302,192 @@ const QuestionForm = ({ question }: { question?: Models.Document }) => {
 };
 
 export default QuestionForm;
+
+
+// components/QuestionForm.tsx
+
+// "use client";
+
+// import RTE from "@/components/RTE";
+// import Meteors from "@/components/magicui/meteors";
+// import { Input } from "@/components/ui/input";
+// import { Label } from "@/components/ui/label";
+// import { useAuthStore } from "@/store/Auth";
+// import { cn } from "@/lib/utils";
+// import slugify from "@/utils/slugify";
+// import { IconX } from "@tabler/icons-react";
+// import { Models, ID } from "appwrite";
+// import { useRouter } from "next/navigation";
+// import React, { useState } from "react";
+// import { databases, storage } from "@/models/client/config";
+// import { db, questionAttachmentBucket, questionCollection } from "@/models/name";
+// import { Confetti } from "@/components/magicui/confetti";
+
+// const LabelInputContainer = ({
+//     children,
+//     className,
+// }: {
+//     children: React.ReactNode;
+//     className?: string;
+// }) => {
+//     return (
+//         <div
+//             className={cn(
+//                 "relative flex w-full flex-col space-y-2 overflow-hidden rounded-xl border border-white/20 bg-slate-950 p-4",
+//                 className
+//             )}
+//         >
+//             <Meteors number={30} />
+//             {children}
+//         </div>
+//     );
+// };
+
+// interface QuestionFormProps {
+//     question?: Models.Document;
+//     onSubmit: (formData: FormData) => Promise<void>;
+// }
+
+// const QuestionForm = ({ question, onSubmit }: QuestionFormProps) => {
+//     const { user } = useAuthStore();
+//     const [tag, setTag] = useState("");
+//     const [formData, setFormData] = useState({
+//         title: String(question?.title || ""),
+//         content: String(question?.content || ""),
+//         authorId: user?.$id,
+//         tags: new Set((question?.tags || []) as string[]),
+//         attachment: null as File | null,
+//     });
+
+//     const [loading, setLoading] = useState(false);
+//     const [error, setError] = useState("");
+
+//     const loadConfetti = (timeInMS = 3000) => {
+//         const end = Date.now() + timeInMS; // 3 seconds
+//         const colors = ["#a786ff", "#fd8bbc", "#eca184", "#f8deb1"];
+
+//         const frame = () => {
+//             if (Date.now() > end) return;
+
+//             Confetti({
+//                 particleCount: 2,
+//                 angle: 60,
+//                 spread: 55,
+//                 startVelocity: 60,
+//                 origin: { x: 0, y: 0.5 },
+//                 colors: colors,
+//             });
+//             Confetti({
+//                 particleCount: 2,
+//                 angle: 120,
+//                 spread: 55,
+//                 startVelocity: 60,
+//                 origin: { x: 1, y: 0.5 },
+//                 colors: colors,
+//             });
+
+//             requestAnimationFrame(frame);
+//         };
+
+//         frame();
+//     };
+
+//     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+//         e.preventDefault();
+
+//         if (!formData.title || !formData.content || !formData.authorId) {
+//             setError(() => "Please fill out all fields");
+//             return;
+//         }
+
+//         setLoading(true);
+//         setError("");
+
+//         try {
+//             await onSubmit(formData);
+//             loadConfetti();
+//         } catch (error: any) {
+//             setError(error.message);
+//         }
+
+//         setLoading(false);
+//     };
+
+//     return (
+//         <form className="space-y-4" onSubmit={handleSubmit}>
+//             {error && (
+//                 <LabelInputContainer>
+//                     <div className="text-center">
+//                         <span className="text-red-500">{error}</span>
+//                     </div>
+//                 </LabelInputContainer>
+//             )}
+//             <LabelInputContainer>
+//                 <Label htmlFor="title">Title Address</Label>
+//                 <Input
+//                     id="title"
+//                     name="title"
+//                     placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
+//                     value={formData.title}
+//                     onChange={e => setFormData(prev => ({ ...prev, title: e.target.value }))}
+//                 />
+//             </LabelInputContainer>
+//             <LabelInputContainer>
+//                 <Label htmlFor="content">What are the details of your problem?</Label>
+//                 <RTE
+//                     value={formData.content}
+//                     onChange={value => setFormData(prev => ({ ...prev, content: value || "" }))}
+//                 />
+//             </LabelInputContainer>
+//             <LabelInputContainer>
+//                 <Label htmlFor="image">Image</Label>
+//                 <Input
+//                     id="image"
+//                     name="image"
+//                     accept="image/*"
+//                     type="file"
+//                     onChange={e => {
+//                         const files = e.target.files;
+//                         if (!files || files.length === 0) return;
+//                         setFormData(prev => ({
+//                             ...prev,
+//                             attachment: files[0],
+//                         }));
+//                     }}
+//                 />
+//             </LabelInputContainer>
+//             <LabelInputContainer>
+//                 <Label htmlFor="tag">Tags</Label>
+//                 <div className="flex w-full gap-4">
+//                     <div className="w-full">
+//                         <Input
+//                             id="tag"
+//                             name="tag"
+//                             placeholder="e.g. (java c objective-c)"
+//                             value={tag}
+//                             onChange={e => setTag(e.target.value)}
+//                         />
+//                     </div>
+//                     <button
+//                         type="button"
+//                         onClick={() => {
+//                             if (tag.length === 0) return;
+//                             setFormData(prev => ({
+//                                 ...prev,
+//                                 tags: new Set([...Array.from(prev.tags), tag]),
+//                             }));
+//                             setTag("");
+//                         }}
+//                     >
+//                         Add
+//                     </button>
+//                 </div>
+//             </LabelInputContainer>
+//             <button type="submit" disabled={loading}>
+//                 {question ? "Update" : "Publish"}
+//             </button>
+//         </form>
+//     );
+// };
+
+// export default QuestionForm;

@@ -9,6 +9,7 @@ import { UserPrefs } from "@/store/Auth";
 import Pagination from "@/components/Pagination";
 import Search from "./Search";
 import LatestQuestions from "../components/LatestQuestions";
+import TopContributers from "../components/TopContributers";
 
 const Page = async ({
     searchParams,
@@ -18,7 +19,7 @@ const Page = async ({
     searchParams.page ||= "1";
 
     const queries = [
-        Query.orderDesc("$createdAt"),
+        // Query.orderDesc("$createdAt"),
         Query.offset((+searchParams.page - 1) * 25),
         Query.limit(25),
     ];
@@ -87,7 +88,8 @@ const Page = async ({
                     <QuestionCard key={ques.$id} ques={ques} />
                 ))}
             </div>
-            <LatestQuestions />
+            {/* <LatestQuestions /> */}
+            
             <br/>
             <Pagination total={questions.total} limit={25} />
             

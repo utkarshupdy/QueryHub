@@ -8,7 +8,7 @@ import React from "react";
 const LatestQuestions = async () => {
     const questions = await databases.listDocuments(db, questionCollection, [
         Query.limit(5),
-        Query.orderDesc("$createdAt"),
+        Query.orderDesc("$updatedAt"),
     ]);
     console.log("Fetched Questions:", questions);
 
@@ -43,7 +43,7 @@ const LatestQuestions = async () => {
     console.log("Latest question")
     console.log(questions)
     return (
-        <div className="space-y-6">
+        <div className="m-10 justify-center space-y-6">
             {questions.documents.map(question => (
                 <QuestionCard key={question.$id} ques={question} />
             ))}
