@@ -1,5 +1,5 @@
 import { databases, users } from "@/models/server/config";
-import { UserPrefs } from "@/store/Auth";
+import { useAuthStore, UserPrefs } from "@/store/Auth";
 import React from "react";
 import { MagicCard, MagicContainer } from "@/components/magicui/magic-card";
 import NumberTicker from "@/components/magicui/number-ticker";
@@ -11,13 +11,18 @@ const Page = async ({ params }: { params: { userId: string; userSlug: string } }
         users.get<UserPrefs>(params.userId),
         databases.listDocuments(db, questionCollection, [
             Query.equal("authorId", params.userId),
-            Query.limit(1), // for optimization
+            // Query.limit(1), // for optimization
         ]),
         databases.listDocuments(db, answerCollection, [
             Query.equal("authorId", params.userId),
-            Query.limit(1), // for optimization
+            // Query.limit(1), // for optimization
         ]),
     ]);
+    // const userr = useAuthStore()
+    // console.log(userr)
+    console.log(user);
+    console.log(questions);
+    console.log(answers);
 
     return (
         <MagicContainer className={"flex h-[500px] w-full flex-col gap-4 lg:h-[250px] lg:flex-row"}>
@@ -26,7 +31,7 @@ const Page = async ({ params }: { params: { userId: string; userSlug: string } }
                     <h2 className="text-xl font-medium">Reputation</h2>
                 </div>
                 <p className="z-10 whitespace-nowrap text-4xl font-medium text-gray-800 dark:text-gray-200">
-                    <NumberTicker value={user.prefs.reputation} />
+                {(user.prefs.reputation) == 0 ? 0 : <NumberTicker value={user.prefs.reputation} />}
                 </p>
                 <div className="pointer-events-none absolute inset-0 h-full bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.3),rgba(255,255,255,0))]" />
             </MagicCard>
@@ -35,7 +40,7 @@ const Page = async ({ params }: { params: { userId: string; userSlug: string } }
                     <h2 className="text-xl font-medium">Questions asked</h2>
                 </div>
                 <p className="z-10 whitespace-nowrap text-4xl font-medium text-gray-800 dark:text-gray-200">
-                    <NumberTicker value={questions.total} />
+                    {questions.total == 0 ? 0 : <NumberTicker value={questions.total} />}
                 </p>
                 <div className="pointer-events-none absolute inset-0 h-full bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.3),rgba(255,255,255,0))]" />
             </MagicCard>
@@ -44,7 +49,7 @@ const Page = async ({ params }: { params: { userId: string; userSlug: string } }
                     <h2 className="text-xl font-medium">Answers given</h2>
                 </div>
                 <p className="z-10 whitespace-nowrap text-4xl font-medium text-gray-800 dark:text-gray-200">
-                    <NumberTicker value={answers.total} />
+                    {answers.total == 0 ? 0 : <NumberTicker value={answers.total} />}
                 </p>
                 <div className="pointer-events-none absolute inset-0 h-full bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.3),rgba(255,255,255,0))]" />
             </MagicCard>

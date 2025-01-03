@@ -24,6 +24,7 @@ const Page = async ({
     ];
 
     const answers = await databases.listDocuments(db, answerCollection, queries);
+    console.log(answers)
 
     answers.documents = await Promise.all(
         answers.documents.map(async ans => {
