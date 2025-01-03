@@ -8,6 +8,7 @@ import QuestionCard from "@/components/QuestionCard";
 import { UserPrefs } from "@/store/Auth";
 import Pagination from "@/components/Pagination";
 import Search from "./Search";
+import LatestQuestions from "../components/LatestQuestions";
 
 const Page = async ({
     searchParams,
@@ -47,6 +48,7 @@ const Page = async ({
                     Query.equal("typeId", ques.$id),
                     Query.limit(1), // for optimization
                 ]),
+                
             ]);
 
             return {
@@ -85,7 +87,10 @@ const Page = async ({
                     <QuestionCard key={ques.$id} ques={ques} />
                 ))}
             </div>
+            <LatestQuestions />
+            <br/>
             <Pagination total={questions.total} limit={25} />
+            
         </div>
     );
 };

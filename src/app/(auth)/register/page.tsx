@@ -27,47 +27,45 @@ const LabelInputContainer = ({
     return <div className={cn("flex w-full flex-col space-y-2", className)}>{children}</div>;
 };
 
+export default function Register() {
+    const { login, createAccount } = useAuthStore();
+    const [isLoading, setIsLoading] = React.useState(false);
+    const [error, setError] = React.useState("");
 
-function Register() {
-    const {createAccount , login} = useAuthStore();
-    const [isLoading , setIsLoading] = React.useState(false);
-    const [error , setError] = React.useState("");
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
 
-    const handleSubmit = async(e : React.FormEvent<HTMLFormElement>)=>{
-        e.preventDefault()
-
-        //collect data 
         const formData = new FormData(e.currentTarget);
-        const firstname = formData.get("firstname")
-        const lastname = formData.get("lastname")
-        const email = formData.get("email")
-        const password = formData.get("password")
+        const firstname = formData.get("firstname");
+        const lastname = formData.get("lastname");
+        const email = formData.get("email");
+        const password = formData.get("password");
 
-        //validate
-
-        if(!firstname || !lastname || !email || !password){
-            setError(()=> "Please fill out all the feilds")
-            return
+        if (!firstname || !lastname || !email || !password) {
+            setError(() => "Please fill out all fields");
+            return;
         }
 
-        //call the store
-        setIsLoading(true);
-        setError("");
+        setIsLoading(() => true);
+        setError(() => "");
+
         const response = await createAccount(
             `${firstname} ${lastname}`,
-            email?.toString() ,
-            password?.toString(),
-        )
-        if(response.error){
-            setError(() => response.error!.message)
-        } else{
-            const loginResponse = await login(email.toString() , password.toString());
-            if(loginResponse.error){
-                setError(() => loginResponse.error!.message)
+            email.toString(),
+            password.toString()
+        );
+
+        if (response.error) {
+            setError(() => response.error!.message);
+        } else {
+            const loginResponse = await login(email.toString(), password.toString());
+            if (loginResponse.error) {
+                setError(() => loginResponse.error!.message);
             }
         }
-        setIsLoading(()=>false)
-    }
+
+        setIsLoading(() => false);
+    };
 
     return (
         <div className="mx-auto w-full max-w-md rounded-none border border-solid border-white/30 bg-white p-4 shadow-input dark:bg-black md:rounded-2xl md:p-8">
@@ -151,5 +149,3 @@ function Register() {
         </div>
     );
 }
-
-export default Register
